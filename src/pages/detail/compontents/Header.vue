@@ -25,6 +25,9 @@ export default {
   activated: function () {
     window.addEventListener("scroll", this.handleScroll);
   },
+  deactivated() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
   components: {},
   computed: {},
   methods: {
@@ -40,7 +43,6 @@ export default {
       } else {
         this.showAbs = true;
       }
-      console.log(document.documentElement.scrollTop);
     },
   },
 };
