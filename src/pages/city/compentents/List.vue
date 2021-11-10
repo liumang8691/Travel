@@ -62,7 +62,7 @@ export default {
       }
     },
     cities() {
-      this.$$nextTick(() => {
+      this.$nextTick(() => {
         this.scroll.refresh();
       });
     },
