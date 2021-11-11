@@ -1,9 +1,13 @@
 <template>
   <div>
-    <detail-banner></detail-banner>
+    <detail-banner
+      :sightName="form.sightName"
+      :bannerImg="form.bannerImg"
+      :bannerImgs="form.gallaryImgs"
+    ></detail-banner>
     <detail-header></detail-header>
     <div class="content">
-      <detail-list :list="list"></detail-list>
+      <detail-list :list="form.categoryList"></detail-list>
     </div>
   </div>
 </template>
@@ -12,38 +16,31 @@
 import DetailBanner from "./compontents/Banner.vue";
 import DetailHeader from "./compontents/Header.vue";
 import DetailList from "./compontents/List.vue";
+import axios from "axios";
 export default {
+  name: "Detail",
   data() {
     return {
-      list: [
-        {
-          id: 1,
-          title: "成人票",
-          children: [
-            { id: 11, title: "成人票" },
-            { id: 12, title: "学生票" },
-            { id: 13, title: "VIP票" },
-            {
-              id: 14,
-              title: "儿童票",
-              children: [
-                { id: 1411, title: "成人票" },
-                { id: 1412, title: "学生票" },
-                { id: 1413, title: "VIP票" },
-                { id: 1414, title: "儿童票" },
-              ],
-            },
-          ],
-        },
-        { id: 2, title: "学生票" },
-        { id: 3, title: "VIP票" },
-        { id: 4, title: "儿童票" },
-      ],
+      form: {},
     };
   },
   components: { DetailBanner, DetailHeader, DetailList },
   computed: {},
-  methods: {},
+  methods: {
+    getDetailInfo() {
+      axios
+        .get("/api/detail.json", { params: { id: this.$route.params.id } })
+        .then((res) => {
+          if (res && res.data && res.data.ret) {
+            const data = res.data.data;
+            this.form = data;
+          }
+        });
+    },
+  },
+  mounted() {
+    this.getDetailInfo();
+  },
 };
 </script>
 
