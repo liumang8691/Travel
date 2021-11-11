@@ -10,16 +10,19 @@
         </div>
       </div>
     </div>
-    <common-gallary
-      :imgs="bannerImgs"
-      @close="handleGallaryClose"
-      v-show="showGallary"
-    ></common-gallary>
+    <common-fade>
+      <common-gallary
+        :imgs="bannerImgs"
+        @close="handleGallaryClose"
+        v-show="showGallary"
+      ></common-gallary>
+    </common-fade>
   </div>
 </template>
 
 <script>
 import CommonGallary from "common/gallary/Gallary";
+import CommonFade from "common/fade/Fade";
 export default {
   props: {
     sightName: String,
@@ -31,7 +34,7 @@ export default {
       showGallary: false,
     };
   },
-  components: { CommonGallary },
+  components: { CommonGallary, CommonFade },
   computed: {},
   methods: {
     handleBannerClick() {
